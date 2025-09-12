@@ -17,3 +17,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 python manage.py makemigrations
 python manage.py migrate
 
+notepad imgw_proxy_app\services\ingest.py
+
+notepad imgw_proxy_app\management\commands\imgw_fetch.py
