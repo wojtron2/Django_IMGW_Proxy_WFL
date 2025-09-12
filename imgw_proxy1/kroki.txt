@@ -11,3 +11,4 @@ mkdir imgw_proxy_app\services
 mkdir imgw_proxy_app\management\commands
 mkdir data
 
+core settings includes 'rest_framework', 'imgw_proxy_app', 
