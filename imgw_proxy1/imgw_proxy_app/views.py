@@ -12,3 +12,4 @@ def warnings_for_point(request):
 def status(request):
     return Response({"status": "ok"})
 
+  
