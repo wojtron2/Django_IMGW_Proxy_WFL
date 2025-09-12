@@ -1,12 +1,7 @@
-
-db.sqlite3
-
 .venv/
 
-__pycache__/
 *.pyc
 *.pyo
-*.log
 
 
 # Byte-compiled / optimized / DLL files
