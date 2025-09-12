@@ -20,3 +20,7 @@ python manage.py migrate
 notepad imgw_proxy_app\services\ingest.py
 
 notepad imgw_proxy_app\management\commands\imgw_fetch.py
+
+python manage.py imgw_fetch
+
+python manage.py shell -c "from imgw_proxy_app.models import Warning; print(Warning.objects.count())"
