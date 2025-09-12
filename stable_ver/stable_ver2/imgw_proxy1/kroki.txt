@@ -1,0 +1,28 @@
+py -3.12 -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install -U pip setuptools wheel
+pip install "Django>=5" djangorestframework shapely requests
+python -m django startproject core .
+python manage.py migrate
+python manage.py startapp imgw_proxy_app
+
+
+mkdir imgw_proxy_app\services
+mkdir imgw_proxy_app\management\commands
+mkdir data
+
+core settings includes 'rest_framework', 'imgw_proxy_app', 
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+python manage.py makemigrations
+python manage.py migrate
+
+notepad imgw_proxy_app\services\ingest.py
+
+notepad imgw_proxy_app\management\commands\imgw_fetch.py
+
+python manage.py imgw_fetch
+
+python manage.py shell -c "from imgw_proxy_app.models import Warning; print(Warning.objects.count())"
+
+notepad data\powiaty_min.geojson
