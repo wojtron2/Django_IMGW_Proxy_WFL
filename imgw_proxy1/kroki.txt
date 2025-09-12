@@ -10,3 +10,4 @@ python manage.py startapp imgw_proxy_app
 mkdir imgw_proxy_app\services
 mkdir imgw_proxy_app\management\commands
 mkdir data
+
