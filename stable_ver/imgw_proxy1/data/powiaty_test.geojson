@@ -1,0 +1,17 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    { "type": "Feature",
+      "properties": { "teryt_powiat": "1261", "teryt_woj": "12", "name": "powiat nowosądecki (przybl.)" },
+      "geometry": { "type": "Polygon", "coordinates": [[[20.2,49.2],[21.3,49.2],[21.3,49.8],[20.2,49.8],[20.2,49.2]]] }
+    },
+    { "type": "Feature",
+      "properties": { "teryt_powiat": "1261", "teryt_woj": "12", "name": "m. Nowy Sącz (przybl.)" },
+      "geometry": { "type": "Polygon", "coordinates": [[[20.65,49.55],[20.78,49.55],[20.78,49.7],[20.65,49.7],[20.65,49.55]]] }
+    },
+    { "type": "Feature",
+      "properties": { "teryt_powiat": "1262", "teryt_woj": "12", "name": "powiat grodzki Kraków (przybl.)" },
+      "geometry": { "type": "Polygon", "coordinates": [[[19.75,50.0],[20.2,50.0],[20.2,50.15],[19.75,50.15],[19.75,50.0]]] }
+    }
+  ]
+}
