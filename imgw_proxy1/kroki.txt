@@ -3,3 +3,5 @@ py -3.12 -m venv .venv
 python -m pip install -U pip setuptools wheel
 pip install "Django>=5" djangorestframework shapely requests
 python -m django startproject proxy_imgw .
+python manage.py migrate
+python manage.py startapp imgw_proxy
