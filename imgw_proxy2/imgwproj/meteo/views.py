@@ -5,6 +5,8 @@ from django.db import transaction
 from .models import Warning, PointSnapshot
 from .serializers import WarningSerializer
 from .services import teryt4_from_latlon, fetch_imgw, upsert_imgw
+from django.db.models import Max
+from django.utils import timezone
 
 @api_view(["GET"])
 def warnings_for_point(request):
@@ -46,3 +48,8 @@ def warnings_for_point(request):
         "items": data,
         "saved_snapshot_id": saved,
     })
+
+@api_view(["GET"])
+def status(request):
+    last_pub = Warning.objects.aggregate(Max("published_at"))["published_at__max"]
+    return Response({"now": timezone.now(), "last_published": last_pub})
