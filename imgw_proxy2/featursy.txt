@@ -45,6 +45,10 @@ jest tez opcjonalnie wersja do odczytu gdy znamy teryt
 http://127.0.0.1:8000/api/meteo/history/teryt/1465
 
 
+jezeli brak ostrzezen to wyswietla sie dane jaki to numer teryt i nazwa powiatu, ale pole currently_active_IMGW_alerts bedzie = 0,
+czyli gdy widzimy imgw_available = true, currently_active_IMGW_alerts bedzie = 0, wiemy ze polaczylismy sie z imgw ale nie ma zadnych alertow dla tego obszaru
+
+
 jezeli chcemy zobaczyc baze danych w GUI jak sie aktualizuje i pojawiaja nowe wpisy  korzystajac z adminpanel, 
 to można stworzyc usera:
 

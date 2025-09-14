@@ -102,13 +102,20 @@ Dodatkowo wariant odczytujacy tylko aktualne ostrzezenia, bez zapisywania do baz
 http://127.0.0.1:8000/api/meteo/warnings/live?lat=52.2297&lon=21.0122
 
 
+jezeli brak ostrzezen to wyswietla sie dane jaki to numer teryt i nazwa powiatu, ale pole currently_active_IMGW_alerts bedzie = 0,
+czyli gdy widzimy imgw_available = true, currently_active_IMGW_alerts bedzie = 0, wiemy ze polaczylismy sie z imgw ale nie ma zadnych alertow dla tego obszaru
+
+
 Odczyt ostrzezen zapisanych w bazie
 
 http://127.0.0.1:8000/api/meteo/history?lat=52.2297&lon=21.0122
 
+
+
 lub tez uwzgledniajacy zakres czasowy
 
 http://127.0.0.1:8000/api/meteo/history?lat=52.2297&lon=21.0122&since=2025-09-01&until=2025-09-15
+
 
 
 Jest tez opcjonalnie wersja do odczytu gdy znamy teryt
@@ -116,9 +123,20 @@ Jest tez opcjonalnie wersja do odczytu gdy znamy teryt
 http://127.0.0.1:8000/api/meteo/history/teryt/1465
 
 
+
+
+
+
+
+
+
+
 Jest rowniez i status (czas ostatniego fetcha)
 
 http://127.0.0.1:8000/api/meteo/status
+
+
+
 
 
 
