@@ -24,7 +24,7 @@ git clone https://github.com/wojtron2/Django_IMGW_Proxy_WFL
 
 cd Django_IMGW_Proxy_WFL\imgw_proxy2\imgwproj
 
-- Uruchamianie projektu
+- Przygotowanie srodowiska i uruchamianie projektu
 
 py -3.12 -m venv .venv
 
