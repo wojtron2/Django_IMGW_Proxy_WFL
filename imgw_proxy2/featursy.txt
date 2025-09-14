@@ -53,3 +53,6 @@ python manage.py createsuperuser
 i wtedy sprawdzic sobie recznie nowe rekordy ostrzezen w bazie
 http://127.0.0.1:8000/admin/
 
+
+jest rowniez i status (czas ostatniego fetcha)
+http://127.0.0.1:8000/api/meteo/status
