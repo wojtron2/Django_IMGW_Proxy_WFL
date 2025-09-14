@@ -16,32 +16,33 @@ from .services import teryt4_from_latlon, fetch_imgw, upsert_imgw
 
 @api_view(["GET"])
 def warnings_for_point(request):
-    # 1) lat/lon
     try:
         lat = float(request.query_params["lat"])
         lon = float(request.query_params["lon"])
     except Exception:
-        return Response({"detail": "lat and lon are required floats"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"detail": "lat and lon are required floats"},
+                        status=status.HTTP_400_BAD_REQUEST)
 
-    # 2) lat/lon -> TERYT-4
+    # mapowanie punktu
     teryt4, area = teryt4_from_latlon(lat, lon)
     if not teryt4:
-        return Response({"detail": "county not found for this point"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"detail": "county not found for this point"},
+                        status=status.HTTP_404_NOT_FOUND)
 
-    # 3) dociagnij i upsertuj feed IMGW (best-effort; jak padnie, korzystamy z bazy)
+    # fetch-on-demand
+    imgw_ok = True
     try:
         items = fetch_imgw()
         upsert_imgw(items)
-    except Exception:
-        pass
+    except Exception as e:
+        imgw_ok = False
 
-    # 4) aktywne teraz ostrzezenia dla powiatu
+    # aktywne ostrzezenia (z DB – nawet jssli IMGW pad;o)
     qs = Warning.current_for_powiat(teryt4)
     data = WarningSerializer(qs, many=True).data
 
-    # 5) opcjonalny zapis snapshotu
     saved = None
-    if request.query_params.get("save") in ("1", "true", "True", "yes"):
+    if request.query_params.get("save") in ("1","true","True","yes"):
         with transaction.atomic():
             snap = PointSnapshot.objects.create(
                 lat=lat, lon=lon, teryt4=teryt4, area_name=area or ""
@@ -49,15 +50,15 @@ def warnings_for_point(request):
             snap.warnings.set(qs)
             saved = snap.id
 
-    return Response(
-        {
-            "point": {"lat": lat, "lon": lon},
-            "area": {"teryt4": teryt4, "name": area},
-            "count": len(data),
-            "items": data,
-            "saved_snapshot_id": saved,
-        }
-    )
+    return Response({
+        "point": {"lat": lat, "lon": lon},
+        "area": {"teryt4": teryt4, "name": area},
+        "count": len(data),
+        "items": data,
+        "saved_snapshot_id": saved,
+        "imgw_available": imgw_ok,     # dodatkowe pole o statusie IMGW
+    })
+
 
 
 @api_view(["GET"])
