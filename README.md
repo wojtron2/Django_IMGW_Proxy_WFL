@@ -49,14 +49,14 @@ python manage.py runserver
 
 ---
 
-##
+## Dzialanie i testy programu
 
 
-Uzywa feed IMGW do odczytywania informacji o warningach dla danego TERYT:
+Aplikacja uzywa feed IMGW do odczytywania informacji o warningach dla danego TERYT:
 
 https://danepubliczne.imgw.pl/api/data/warningsmeteo
 
-oraz dokonuje odczytywanie informacji jaki TERYT wypada dla danej lat/lon z geoportalu, przykladowe query do geoportalu:
+oraz dokonuje odczytywania informacji jaki TERYT wypada dla danej lat/lon z geoportalu, przykladowe query do geoportalu:
 
 https://mapy.geoportal.gov.pl/wss/ims/maps/PRG_gugik_wyszukiwarka/MapServer/1/query?f=pjson&geometry=%7B%22x%22%3A20.69%2C%22y%22%3A49.62%7D&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=teryt%2Cnazwa&returnGeometry=false
 
