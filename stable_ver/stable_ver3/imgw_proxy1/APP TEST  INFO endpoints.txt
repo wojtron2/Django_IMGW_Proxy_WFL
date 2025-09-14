@@ -1,0 +1,16 @@
+# API tests using curl
+
+# 1. Check if the server is running
+curl http://127.0.0.1:8000/
+
+# 2. Check the warnings endpoint (without query params)
+curl http://127.0.0.1:8000/api/warnings
+
+# 3. Check the warnings endpoint with lat/lon parameters
+curl "http://127.0.0.1:8000/api/warnings?lat=49.62&lon=20.70"
+
+# 4. Pretty-print the JSON response (Linux/macOS with jq installed)
+curl -s "http://127.0.0.1:8000/api/warnings?lat=49.62&lon=20.70" | jq
+
+# 5. Check the status endpoint
+curl http://127.0.0.1:8000/api/status
