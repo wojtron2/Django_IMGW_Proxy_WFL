@@ -8,20 +8,43 @@ Wymagania:
 
 - Python 3.12 (lub zgodny z projektem)
 - Git
-- (Opcjonalnie) `curl` do szybkiego testowania endpointów
 
 ## Przygotowanie katalogu dla projektu
 Win+R -> cmd
+
 cd C:\
+
 mkdir IMGW_Proxy_WFL
+
 cd IMGW_Proxy_WFL
 
-Pobieranie projektu
+- Nastepnie pobieranie projektu:
 
-##  Uruchamianie projektu
-https://github.com/wojtron2/Django_IMGW_Proxy_WFL
+git clone https://github.com/wojtron2/Django_IMGW_Proxy_WFL
+
+cd Django_IMGW_Proxy_WFL\imgw_proxy2\imgwproj
+
+- Uruchamianie projektu
+
+py -3.12 -m venv .venv
+
+.venv\Scripts\activate.bat
 
 
+
+python -m pip install --upgrade pip
+
+pip install -r requirements.txt
+
+
+python manage.py migrate
+
+
+(Opcjonalnie) Utworzenie użytkownika admina dla sprawdzenia bazy
+python manage.py createsuperuser
+
+
+python manage.py runserver
 
 
 ---
