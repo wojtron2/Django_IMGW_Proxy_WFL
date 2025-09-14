@@ -6,7 +6,7 @@ https://danepubliczne.imgw.pl/api/data/warningsmeteo
 oraz dokonuje odczytywanie informacji jaki TERYT wypada dla danej lat/lon z geoportalu, przykladowe query:
 https://mapy.geoportal.gov.pl/wss/ims/maps/PRG_gugik_wyszukiwarka/MapServer/1/query?f=pjson&geometry=%7B%22x%22%3A20.69%2C%22y%22%3A49.62%7D&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=teryt%2Cnazwa&returnGeometry=false
 
-dla zmniejszenia czasu odpowiedzi (geoportal potrafi czasem zamulic) i unikniecia zapytan do geoportalu dla wartosci lat/lon ktore byly juz sprawdzane zastosowano konfigurowalne cache'owanie kombinacji lat/lon - TERYT dla redukcji obciazenia serwera, wyłączalne zmienną w settings
+dla zmniejszenia czasu odpowiedzi (znam geoportal i z doswiadczenia wiem ze potrafi czasem zamulic) i unikniecia zapytan do geoportalu dla wartosci lat/lon ktore byly juz sprawdzane zastosowano konfigurowalne cache'owanie kombinacji lat/lon - TERYT dla redukcji obciazenia serwera, wyłączalne zmienną w settings
 
 METEO_CACHE_ENABLED = True  # toggle use of TERYT - lat/lon cache
 
@@ -22,7 +22,7 @@ http://127.0.0.1:8000/api/meteo/warnings?lat=49.62&lon=20.69
 
 Uzyskujemy w ten sposob JSONa z ostrzeżeniami IMGW dla danego powiatu znajdujacego sie na danej lat/lon oraz numer teryt dla tego powiatu, nazwe powiatu, czas obowiazywania od do, poziom, prawdopodobienstwo wystapienia,tytul ostrzezenia, tresc ostrzezenia i kto je wydał oraz kiedy,
 
-jesli serwer IMGW niedostepny wczyta tylko ostrzezenia z bazy,
+jesli serwer IMGW niedostepny wczyta tylko dotychczasowe ostrzezenia z bazy,
 
 kazde wywolanie powyzszego api dokona zapisu danego ostrzezenia w bazie, ale jest tez mechanizm pilnujacy by zapisywaly sie tylko ostrzezenia ktorych jeszcze nie ma w bazie by unikac duplikatow,
 
@@ -42,15 +42,9 @@ jest tez opcjonalnie wersja do odczytu gdy znamy teryt
 http://127.0.0.1:8000/api/meteo/history/teryt/1465
 
 
+można stworzyc usera
+python manage.py createsuperuser
 
-zrobic odczyt ostrzezen dla danego lat lon bez zapisywania w bazie,
+i wtedy sprawdzic sobie recznie nowe rekordy ostrzezen w bazie
+http://127.0.0.1:8000/admin/
 
-jak odpalic admina i zobaczyc sobie te zapisane ostrzezenia w bazie,
-
-
-Mozna zobaczyć historie ostrzezen zapisanych w bazie dla danej szerokosci i dlugosci
-
-
-//!!dodac odczyt historii dla danej lat/lon
-
-Można wywołać aktualizacje danch w bazie przez api,
