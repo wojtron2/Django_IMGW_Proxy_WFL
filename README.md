@@ -1,6 +1,19 @@
 # IMGW Proxy with lat/lon to teryt conversion from geoportal API
 
-Aplikacja pozwala na wyswietlenie ostrzezen IMGW dla danej dlugosci lat/lon
+Aplikacja pozwala na wyswietlenie ostrzezen IMGW dla danej dlugosci lat/lon (zwraca w JSON)
+
+
+---
+
+##  Uruchamianie projektu
+
+
+
+
+---
+
+##
+
 
 Uzywa feed IMGW do odczytywania informacji o warningach dla danego TERYT:
 https://danepubliczne.imgw.pl/api/data/warningsmeteo
