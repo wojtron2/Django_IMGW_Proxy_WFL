@@ -84,7 +84,7 @@ http://127.0.0.1:8000/api/meteo/warnings?lat=49.62&lon=20.69
 
 
 Uzyskujemy w ten sposob JSONa z ostrzeżeniami IMGW dla danego powiatu znajdujacego sie na danej lat/lon oraz numer teryt dla tego powiatu, nazwe powiatu, czas obowiazywania od do, poziom, prawdopodobienstwo wystapienia,tytul ostrzezenia, tresc ostrzezenia i kto je wydał oraz kiedy, do tego informacje o polaczeniu z IMGW imgw_available i liczbe aktualnych ostrzezen dla danego obszaru currently_active_IMGW_alerts
-
+currently_active_IMGW_alerts to alias dla count (zwracaja to samo)
 
 Jesli serwer IMGW niedostepny wczyta tylko dotychczasowe ostrzezenia z bazy, kazdy odczyt ma w jsonie informacje czy IMGW dziala i czy prezentowane dane sa wlasnie odswiezone,
 "imgw_available": true oznacza ze dane zostaly odswiezone i prezentowane ostrzezenie jest wlasnie sprawdzone na serwerze IMGW
