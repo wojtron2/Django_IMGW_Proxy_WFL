@@ -1,0 +1,9 @@
+feed imgw
+
+https://danepubliczne.imgw.pl/api/data/warningsmeteo
+
+
+
+dzialajacy query lat/lon > teryt
+
+https://mapy.geoportal.gov.pl/wss/ims/maps/PRG_gugik_wyszukiwarka/MapServer/1/query?f=pjson&geometry=%7B%22x%22%3A20.69%2C%22y%22%3A49.62%7D&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=teryt%2Cnazwa&returnGeometry=false

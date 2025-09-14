@@ -69,7 +69,7 @@ def status_view(request):
 def _parse_dt_local_utc(s: str | None):
     """
     Przyjmuje np. '2025-09-14' albo '2025-09-14T12:30:00' (czas lokalny PL)
-    i zwraca aware UTC. Gdy podano sama date, przyjmujemy 00:00:00 lokalnie.
+    i zwraca aware UTC. Gdy podano samą datę, przyjmujemy 00:00:00 lokalnie.
     """
     if not s:
         return None
@@ -85,9 +85,9 @@ def _parse_dt_local_utc(s: str | None):
 
 def _history_qs_for_teryt(teryt4: str, since_utc, until_utc, active_at_utc):
     """
-    Zwraca QS ostrzezen dla powiatu:
-    - active_at_utc: co obowiazywało o tej chwili
-    - since/until: przecięcie przedziałow
+    Zwraca QS ostrzeżeń dla powiatu:
+    - active_at_utc: co obowiązywało o tej chwili
+    - since/until: przecięcie przedziałów
     - bez filtrów: pełna historia
     """
     base = Warning.objects.filter(coverage__teryt4=teryt4).distinct()
@@ -117,13 +117,13 @@ def warnings_for_teryt(request, teryt4: str):
 @api_view(["GET"])
 def history_for_point(request):
     """
-    Historia ostrzezen dla punktu (lat/lon), z opcjonalnym filtrem czasu.
+    Historia ostrzeżeń dla punktu (lat/lon), z opcjonalnym filtrem czasu.
     Query params:
       lat, lon (wymagane)
       since=YYYY-MM-DD[THH:MM:SS] (lokalny PL)
       until=YYYY-MM-DD[THH:MM:SS] (lokalny PL)
       active_at=YYYY-MM-DD[THH:MM:SS] (lokalny PL)
-      refresh=0|1 (czy dociagac IMGW przed odpowiedzia; domyślnie 1)
+      refresh=0|1 (czy dociągać IMGW przed odpowiedzią; domyślnie 1)
     """
     try:
         lat = float(request.query_params["lat"])
@@ -163,8 +163,8 @@ def history_for_point(request):
 @api_view(["GET"])
 def history_for_teryt(request, teryt4: str):
     """
-    Historia ostrzezen dla zadanego TERYT-4 (bez Geoportalu).
-    Te same parametry filtrujące co wyzej: since / until / active_at / refresh.
+    Historia ostrzeżeń dla zadanego TERYT-4 (bez Geoportalu).
+    Te same parametry filtrujące co wyżej: since / until / active_at / refresh.
     """
     do_refresh = request.query_params.get("refresh", "1") not in ("0", "false", "False", "no")
     if do_refresh:
@@ -187,61 +187,3 @@ def history_for_teryt(request, teryt4: str):
             "items": data,
         }
     )
-
-
-@api_view(["GET"])
-def warnings_live(request):
-    """
-    Swiezy odczyt ostrzeżeń IMGW dla danego lat/lon, bez zapisu w bazie.
-    """
-    try:
-        lat = float(request.query_params["lat"])
-        lon = float(request.query_params["lon"])
-    except Exception:
-        return Response({"detail": "lat and lon are required floats"}, status=400)
-
-    # mapowanie punkt -> TERYT (z cache TerytCache, jesli wlaczony)
-    teryt4, area = teryt4_from_latlon(lat, lon)
-    if not teryt4:
-        return Response({"detail": "county not found for this point"}, status=404)
-
-    # pobierz feed IMGW (ale nie zapisuj)
-    try:
-        items = fetch_imgw()
-    except Exception as e:
-        return Response({"detail": f"IMGW fetch failed: {e}"}, status=502)
-
-    # filtruj ostrzezenia z feedu dla tego TERYT, ktore obowiazuja teraz
-    from datetime import datetime
-    from zoneinfo import ZoneInfo
-    now = datetime.now(ZoneInfo("UTC"))
-
-    def _pl_to_utc(s):
-        if not s: return None
-        dt = datetime.strptime(s, "%Y-%m-%d %H:%M:%S").replace(tzinfo=ZoneInfo("Europe/Warsaw"))
-        return dt.astimezone(ZoneInfo("UTC"))
-
-    filtered = []
-    for it in items:
-        if teryt4 not in {str(x) for x in (it.get("teryt") or [])}:
-            continue
-        vf, vt = _pl_to_utc(it.get("obowiazuje_od")), _pl_to_utc(it.get("obowiazuje_do"))
-        if vf and vt and vf <= now <= vt:
-            filtered.append({
-                "id": it.get("id"),
-                "event_name": it.get("nazwa_zdarzenia"),
-                "level": it.get("stopien"),
-                "probability": it.get("prawdopodobienstwo"),
-                "valid_from": vf,
-                "valid_to": vt,
-                "content": it.get("tresc"),
-                "comment": it.get("komentarz"),
-                "office": it.get("biuro"),
-            })
-
-    return Response({
-        "point": {"lat": lat, "lon": lon},
-        "area": {"teryt4": teryt4, "name": area},
-        "count": len(filtered),
-        "items": filtered,
-    })

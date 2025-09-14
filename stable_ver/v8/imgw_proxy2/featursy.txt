@@ -22,13 +22,7 @@ http://127.0.0.1:8000/api/meteo/warnings?lat=49.62&lon=20.69
 
 Uzyskujemy w ten sposob JSONa z ostrzeżeniami IMGW dla danego powiatu znajdujacego sie na danej lat/lon oraz numer teryt dla tego powiatu, nazwe powiatu, czas obowiazywania od do, poziom, prawdopodobienstwo wystapienia,tytul ostrzezenia, tresc ostrzezenia i kto je wydał oraz kiedy,
 
-jesli serwer IMGW niedostepny wczyta tylko ostrzezenia z bazy,
-
 kazde wywolanie powyzszego api dokona zapisu danego ostrzezenia w bazie, ale jest tez mechanizm pilnujacy by zapisywaly sie tylko ostrzezenia ktorych jeszcze nie ma w bazie by unikac duplikatow,
-
-
-dodatkowo wariant odczytujacy tylko aktualne ostrzezenia, bez zapisywania do bazy
-http://127.0.0.1:8000/api/meteo/warnings/live?lat=52.2297&lon=21.0122
 
 
 odczyt ostrzezen zapisanych w bazie
