@@ -61,7 +61,7 @@ def warnings_for_point(request):
         "area": {"teryt4": teryt4, "name": area},
         "count": len(data),
         "items": data,
-        "currently_active_IMGW_alerts": len(data) > 0,
+        "currently_active_IMGW_alerts": len(data),
         "saved_snapshot_id": saved,
         "imgw_available": imgw_ok,
     })
@@ -121,7 +121,7 @@ def warnings_for_teryt(request, teryt4: str):
         "teryt4": teryt4,
         "count": len(data),
         "items": data,
-        "currently_active_IMGW_alerts": len(data) > 0,
+        "currently_active_IMGW_alerts": len(data),
     })
 
 
@@ -166,7 +166,7 @@ def history_for_point(request):
         "filters": {"since": since_utc, "until": until_utc, "active_at": active_utc},
         "count": len(data),
         "items": data,
-        "currently_active_IMGW_alerts": len(data) > 0,
+        "currently_active_IMGW_alerts": len(data),
         "imgw_available": imgw_ok,
     })
 
@@ -196,7 +196,7 @@ def history_for_teryt(request, teryt4: str):
         "filters": {"since": since_utc, "until": until_utc, "active_at": active_utc},
         "count": len(data),
         "items": data,
-        "currently_active_IMGW_alerts": len(data) > 0,
+        "currently_active_IMGW_alerts": len(data),
         "imgw_available": imgw_ok,
     })
 
@@ -256,6 +256,6 @@ def warnings_live(request):
         "area": {"teryt4": teryt4, "name": area},
         "count": len(filtered),
         "items": filtered,
-        "currently_active_IMGW_alerts": len(filtered) > 0,
+        "currently_active_IMGW_alerts": len(data),
         "imgw_available": imgw_ok,
     })
