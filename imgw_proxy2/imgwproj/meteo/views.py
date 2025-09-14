@@ -256,6 +256,6 @@ def warnings_live(request):
         "area": {"teryt4": teryt4, "name": area},
         "count": len(filtered),
         "items": filtered,
-        "currently_active_IMGW_alerts": len(data),
+        "currently_active_IMGW_alerts": len(filtered),
         "imgw_available": imgw_ok,
     })
