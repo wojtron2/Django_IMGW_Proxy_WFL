@@ -4,8 +4,22 @@ Aplikacja pozwala na wyswietlenie ostrzezen IMGW dla danej dlugosci lat/lon (zwr
 
 
 ---
+Wymagania:
+
+- Python 3.12 (lub zgodny z projektem)
+- Git
+- (Opcjonalnie) `curl` do szybkiego testowania endpointów
+
+## Przygotowanie katalogu dla projektu
+Win+R -> cmd
+cd C:\
+mkdir IMGW_Proxy_WFL
+cd IMGW_Proxy_WFL
+
+Pobieranie projektu
 
 ##  Uruchamianie projektu
+https://github.com/wojtron2/Django_IMGW_Proxy_WFL
 
 
 
@@ -19,7 +33,7 @@ Uzywa feed IMGW do odczytywania informacji o warningach dla danego TERYT:
 
 https://danepubliczne.imgw.pl/api/data/warningsmeteo
 
-oraz dokonuje odczytywanie informacji jaki TERYT wypada dla danej lat/lon z geoportalu, przykladowe query:
+oraz dokonuje odczytywanie informacji jaki TERYT wypada dla danej lat/lon z geoportalu, przykladowe query do geoportalu:
 
 https://mapy.geoportal.gov.pl/wss/ims/maps/PRG_gugik_wyszukiwarka/MapServer/1/query?f=pjson&geometry=%7B%22x%22%3A20.69%2C%22y%22%3A49.62%7D&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=teryt%2Cnazwa&returnGeometry=false
 
