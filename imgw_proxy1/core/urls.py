@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("imgw_proxy_app.urls")),  #  app
+    path("api/meteo/", include("meteo.urls")),
 ]

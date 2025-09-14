@@ -28,3 +28,7 @@ python manage.py imgw_fetch
 # testowo
 python manage.py shell -c "from imgw_proxy_app.models import Warning; print(Warning.objects.count())"
 
+//
+
+python manage.py startapp meteo
+
