@@ -42,7 +42,7 @@ def warnings_for_point(request):
     except Exception:
         imgw_ok = False
 
-    # aktywne ostrzeżenia (z DB – nawet jeśli IMGW padło)
+    # aktywne ostrzezenia (z DB – nawet jesli IMGW padlo)
     qs = Warning.current_for_powiat(teryt4)
     data = WarningSerializer(qs, many=True).data
 
@@ -61,6 +61,7 @@ def warnings_for_point(request):
         "area": {"teryt4": teryt4, "name": area},
         "count": len(data),
         "items": data,
+        "currently_active_IMGW_alerts": len(data) > 0,
         "saved_snapshot_id": saved,
         "imgw_available": imgw_ok,
     })
@@ -115,9 +116,13 @@ def _history_qs_for_teryt(teryt4: str, since_utc, until_utc, active_at_utc):
 def warnings_for_teryt(request, teryt4: str):
     """Aktualne TERAZ ostrzezenia dla zadanego TERYT-4 (bez Geoportalu)."""
     qs = Warning.current_for_powiat(teryt4)
-    return Response(
-        {"teryt4": teryt4, "count": qs.count(), "items": WarningSerializer(qs, many=True).data}
-    )
+    data = WarningSerializer(qs, many=True).data
+    return Response({
+        "teryt4": teryt4,
+        "count": len(data),
+        "items": data,
+        "currently_active_IMGW_alerts": len(data) > 0,
+    })
 
 
 @api_view(["GET"])
@@ -161,6 +166,7 @@ def history_for_point(request):
         "filters": {"since": since_utc, "until": until_utc, "active_at": active_utc},
         "count": len(data),
         "items": data,
+        "currently_active_IMGW_alerts": len(data) > 0,
         "imgw_available": imgw_ok,
     })
 
@@ -190,6 +196,7 @@ def history_for_teryt(request, teryt4: str):
         "filters": {"since": since_utc, "until": until_utc, "active_at": active_utc},
         "count": len(data),
         "items": data,
+        "currently_active_IMGW_alerts": len(data) > 0,
         "imgw_available": imgw_ok,
     })
 
@@ -205,7 +212,7 @@ def warnings_live(request):
     except Exception:
         return Response({"detail": "lat and lon are required floats"}, status=400)
 
-    # mapowanie punkt -> TERYT (z cache TerytCache, jeśli wlaczony)
+    # mapowanie punkt -> TERYT (z cache TerytCache, jesli wlaczony)
     teryt4, area = teryt4_from_latlon(lat, lon)
     if not teryt4:
         return Response({"detail": "county not found for this point"}, status=404)
@@ -249,5 +256,6 @@ def warnings_live(request):
         "area": {"teryt4": teryt4, "name": area},
         "count": len(filtered),
         "items": filtered,
+        "currently_active_IMGW_alerts": len(filtered) > 0,
         "imgw_available": imgw_ok,
     })
