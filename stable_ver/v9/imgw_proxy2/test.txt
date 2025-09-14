@@ -1,0 +1,6 @@
+http://127.0.0.1:8000/api/meteo/warnings?lat=52.2297&lon=21.0122
+http://127.0.0.1:8000/api/meteo/warnings?lat=52.2000&lon=20.6170
+http://127.0.0.1:8000/api/meteo/warnings?lat=50.0614&lon=19.9372
+http://127.0.0.1:8000/api/meteo/warnings?lat=52.4064&lon=16.9252
+http://127.0.0.1:8000/api/meteo/warnings?lat=49.62&lon=20.69
+
