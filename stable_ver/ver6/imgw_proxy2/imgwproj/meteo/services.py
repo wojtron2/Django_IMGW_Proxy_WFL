@@ -2,29 +2,13 @@ import json, requests
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from .models import Warning, Powiat
-from .models import TerytCache
 
 IMGW_URL = "https://danepubliczne.imgw.pl/api/data/warningsmeteo"
 GEO_URL  = "https://mapy.geoportal.gov.pl/wss/ims/maps/PRG_gugik_wyszukiwarka/MapServer/1/query"
 
 def teryt4_from_latlon(lat: float, lon: float):
-    # Trwaly cache: najpierw DB (TerytCache), potem Geoportal (i zapis do DB).
-    lat = round(float(lat), 6)
-    lon = round(float(lon), 6)
-
-    # 1) proba z bazy
-    try:
-        rec = TerytCache.objects.get(lat=lat, lon=lon)
-        # zaktualizuj statystyki uzycia (last_used + hits)
-        TerytCache.objects.filter(pk=rec.pk).update(
-            hits=F('hits') + 1, last_used=timezone.now()
-        )
-        return rec.teryt4, rec.area_name
-    except TerytCache.DoesNotExist:
-        pass
-
-    # 2) call do Geoportalu
-    geom = json.dumps({"x": lon, "y": lat})  # ArcGIS: x=lon, y=lat
+    """Zwraca (teryt4, nazwa_pow) dla danego punktu, korzystajac z Geoportalu."""
+    geom = json.dumps({"x": round(lon, 6), "y": round(lat, 6)})  # ArcGIS: x=lon, y=lat
     params = {
         "f": "pjson",
         "geometry": geom,
@@ -38,31 +22,9 @@ def teryt4_from_latlon(lat: float, lon: float):
     r.raise_for_status()
     feats = r.json().get("features") or []
     if not feats:
-        with transaction.atomic():
-            obj, created = TerytCache.objects.get_or_create(
-                lat=lat, lon=lon,
-                defaults={"teryt4": None, "area_name": ""}
-            )
-            if not created:
-                TerytCache.objects.filter(pk=obj.pk).update(last_used=timezone.now(), hits=F('hits') + 1)
         return None, None
-
     a = feats[0]["attributes"]
-    teryt, name = str(a.get("teryt")), a.get("nazwa") or ""
-
-    # 3) zapis TERYT lat/lon do DB
-    with transaction.atomic():
-        obj, created = TerytCache.objects.get_or_create(
-            lat=lat, lon=lon,
-            defaults={"teryt4": teryt, "area_name": name, "hits": 1}
-        )
-        if not created:
-            TerytCache.objects.filter(pk=obj.pk).update(
-                teryt4=teryt, area_name=name, last_used=timezone.now(),
-                hits=F('hits') + 1
-            )
-
-    return teryt, name
+    return str(a.get("teryt")), a.get("nazwa")
 
 def _pl_to_utc(s: str):
     """Daty IMGW sa w Europe/Warsaw; konwertuj do UTC (aware)."""

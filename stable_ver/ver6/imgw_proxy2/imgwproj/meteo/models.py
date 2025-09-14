@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.db.models import F
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Powiat(models.Model):
@@ -71,26 +70,3 @@ class PointSnapshot(models.Model):
             models.Index(fields=['fetched_at']),
             models.Index(fields=['teryt4']),
         ]
-
-
-
-class TerytCache(models.Model):
-    # zapisujemy wartosci, ktire przychodza w zapytaniu
-    lat = models.DecimalField(max_digits=9, decimal_places=6)
-    lon = models.DecimalField(max_digits=9, decimal_places=6)
-
-    # wynik mapowania
-    teryt4 = models.CharField(max_length=4, null=True, blank=True)
-    area_name = models.CharField(max_length=120, blank=True)
-
-    # metryki uzycia
-    hits = models.PositiveIntegerField(default=0)
-    first_seen = models.DateTimeField(auto_now_add=True)
-    last_used = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        unique_together = [('lat', 'lon')]
-        indexes = [models.Index(fields=['lat', 'lon'])]
-
-    def __str__(self):
-        return f"{self.lat},{self.lon} -> {self.teryt4 or '-'}"
