@@ -43,14 +43,8 @@ http://127.0.0.1:8000/api/meteo/history/teryt/1465
 
 
 
-zrobic odczyt ostrzezen dla danego lat lon bez zapisywania w bazie,
 
 jak odpalic admina i zobaczyc sobie te zapisane ostrzezenia w bazie,
 
 
-Mozna zobaczyć historie ostrzezen zapisanych w bazie dla danej szerokosci i dlugosci
 
-
-//!!dodac odczyt historii dla danej lat/lon
-
-Można wywołać aktualizacje danch w bazie przez api,
