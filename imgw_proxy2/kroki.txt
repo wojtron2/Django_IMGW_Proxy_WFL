@@ -7,3 +7,8 @@ pip install "django>=5,<6" "djangorestframework>=3.15,<4" "requests>=2.32,<3"
 
 django-admin startproject imgwproj .
 python manage.py startapp meteo
+
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
