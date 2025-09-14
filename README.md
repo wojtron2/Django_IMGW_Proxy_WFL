@@ -1,6 +1,6 @@
 # IMGW Proxy with lat/lon to teryt conversion from geoportal API
 
-Aplikacja pozwala na wyswietlenie ostrzezen IMGW dla danej dlugosci lat/lon (zwraca w JSON)
+Aplikacja Proxy pozwala na zwracanie ostrzezen IMGW dla danej dlugosci lat/lon w formacie JSON
 
 
 ---
@@ -60,7 +60,7 @@ oraz dokonuje odczytywania informacji jaki TERYT wypada dla danej lat/lon z geop
 
 https://mapy.geoportal.gov.pl/wss/ims/maps/PRG_gugik_wyszukiwarka/MapServer/1/query?f=pjson&geometry=%7B%22x%22%3A20.69%2C%22y%22%3A49.62%7D&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=teryt%2Cnazwa&returnGeometry=false
 
-dla zmniejszenia czasu odpowiedzi (kto zna geoportal wie ze potrafi czasem zamulic) i unikniecia zapytan do geoportalu dla wartosci lat/lon ktore byly juz sprawdzane zastosowano konfigurowalne cache'owanie kombinacji lat/lon - TERYT dla redukcji obciazenia serwera, wyłączalne zmienną w settings, czyli kazda kombinacja lat/lon -> teryt juz ustalona bedzie zapisana w bazie, co optymalizuje obciazenie serwera,
+Dla zmniejszenia czasu odpowiedzi (kto zna geoportal wie ze potrafi czasem zamulic) i unikniecia zapytan do geoportalu dla wartosci lat/lon ktore byly juz sprawdzane zastosowano konfigurowalne cache'owanie kombinacji lat/lon - TERYT dla redukcji obciazenia serwera, wyłączalne zmienną w settings, czyli kazda kombinacja lat/lon -> teryt juz ustalona bedzie zapisana w bazie, co optymalizuje obciazenie serwera,
 
 METEO_CACHE_ENABLED = True  # toggle use of TERYT - lat/lon cache
 
@@ -97,12 +97,12 @@ Kazde wywolanie powyzszego api dokona zapisu danego ostrzezenia w bazie, ale jes
 
 
 
-dodatkowo wariant odczytujacy tylko aktualne ostrzezenia, bez zapisywania do bazy
+Dodatkowo wariant odczytujacy tylko aktualne ostrzezenia, bez zapisywania do bazy
 
 http://127.0.0.1:8000/api/meteo/warnings/live?lat=52.2297&lon=21.0122
 
 
-odczyt ostrzezen zapisanych w bazie
+Odczyt ostrzezen zapisanych w bazie
 
 http://127.0.0.1:8000/api/meteo/history?lat=52.2297&lon=21.0122
 
@@ -111,18 +111,18 @@ lub tez uwzgledniajacy zakres czasowy
 http://127.0.0.1:8000/api/meteo/history?lat=52.2297&lon=21.0122&since=2025-09-01&until=2025-09-15
 
 
-jest tez opcjonalnie wersja do odczytu gdy znamy teryt
+Jest tez opcjonalnie wersja do odczytu gdy znamy teryt
 
 http://127.0.0.1:8000/api/meteo/history/teryt/1465
 
 
-jest rowniez i status (czas ostatniego fetcha)
+Jest rowniez i status (czas ostatniego fetcha)
 
 http://127.0.0.1:8000/api/meteo/status
 
 
 
-jezeli chcemy zobaczyc baze danych w GUI jak sie aktualizuje i pojawiaja nowe wpisy korzystajac z adminpanel, 
+Jezeli chcemy zobaczyc baze danych w GUI jak sie aktualizuje i pojawiaja nowe wpisy korzystajac z adminpanel, 
 to można stworzyc usera:
 
 python manage.py createsuperuser
