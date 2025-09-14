@@ -26,6 +26,9 @@ dla zmniejszenia czasu odpowiedzi (kto zna geoportal wie ze potrafi czasem zamul
 METEO_CACHE_ENABLED = True  # toggle use of TERYT - lat/lon cache
 
 
+
+
+
 Mozna sprawdzic komunikaty IMGW dla danego lat/lon:
 
 http://127.0.0.1:8000/api/meteo/warnings?lat=52.2297&lon=21.0122
@@ -35,14 +38,20 @@ http://127.0.0.1:8000/api/meteo/warnings?lat=52.4064&lon=16.9252
 http://127.0.0.1:8000/api/meteo/warnings?lat=49.62&lon=20.69
 
 
+
+
 Uzyskujemy w ten sposob JSONa z ostrzeżeniami IMGW dla danego powiatu znajdujacego sie na danej lat/lon oraz numer teryt dla tego powiatu, nazwe powiatu, czas obowiazywania od do, poziom, prawdopodobienstwo wystapienia,tytul ostrzezenia, tresc ostrzezenia i kto je wydał oraz kiedy,
 
-jesli serwer IMGW niedostepny wczyta tylko dotychczasowe ostrzezenia z bazy, kazdy odczyt ma w jsonie informacje czy IMGW dziala i czy prezentowane dane sa wlasnie odswiezone,
+
+Jesli serwer IMGW niedostepny wczyta tylko dotychczasowe ostrzezenia z bazy, kazdy odczyt ma w jsonie informacje czy IMGW dziala i czy prezentowane dane sa wlasnie odswiezone,
 "imgw_available": true oznacza ze dane zostaly odswiezone i prezentowane ostrzezenie jest wlasnie sprawdzone na serwerze IMGW
 imgw_available": false oznacza ze serwer IMGW nie odpowiedzial i prezentowane dane są z bazy danych (najnowsze zapisane ostrzezenie),
 
 
-kazde wywolanie powyzszego api dokona zapisu danego ostrzezenia w bazie, ale jest tez mechanizm pilnujacy by zapisywaly sie tylko ostrzezenia ktorych jeszcze nie ma w bazie by unikac duplikatow,
+Kazde wywolanie powyzszego api dokona zapisu danego ostrzezenia w bazie, ale jest tez mechanizm pilnujacy by zapisywaly sie tylko ostrzezenia ktorych jeszcze nie ma w bazie by unikac duplikatow,
+
+
+
 
 
 dodatkowo wariant odczytujacy tylko aktualne ostrzezenia, bez zapisywania do bazy
@@ -60,7 +69,12 @@ jest tez opcjonalnie wersja do odczytu gdy znamy teryt
 http://127.0.0.1:8000/api/meteo/history/teryt/1465
 
 
-jezeli chcemy zobaczyc baze danych w GUI jak sie aktualizuje i pojawiaja nowe wpisy  korzystajac z adminpanel, 
+jest rowniez i status (czas ostatniego fetcha)
+http://127.0.0.1:8000/api/meteo/status
+
+
+
+jezeli chcemy zobaczyc baze danych w GUI jak sie aktualizuje i pojawiaja nowe wpisy korzystajac z adminpanel, 
 to można stworzyc usera:
 
 python manage.py createsuperuser
@@ -69,5 +83,4 @@ i wtedy sprawdzic sobie recznie nowe rekordy ostrzezen w bazie
 http://127.0.0.1:8000/admin/
 
 
-jest rowniez i status (czas ostatniego fetcha)
-http://127.0.0.1:8000/api/meteo/status
+
