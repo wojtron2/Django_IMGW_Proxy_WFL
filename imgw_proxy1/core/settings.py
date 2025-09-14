@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'imgw_proxy_app',
+    'meteo',
+    
 ]
 
 MIDDLEWARE = [
