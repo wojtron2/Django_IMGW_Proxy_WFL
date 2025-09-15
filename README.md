@@ -10,6 +10,7 @@ Wymagania:
 - Git
 
 ## Przygotowanie katalogu dla projektu
+(uruchomienie projektu od zera do testow w 5 minut)
 Win+R -> cmd
 
 cd C:\
