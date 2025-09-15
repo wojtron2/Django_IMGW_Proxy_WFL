@@ -164,5 +164,6 @@ i wtedy sprawdzic sobie recznie nowe rekordy ostrzezen w bazie
 http://127.0.0.1:8000/admin/
 
 
+<img width="1218" height="603" alt="obraz" src="https://github.com/user-attachments/assets/b598628c-cae9-46d3-8a78-0cbb579c47cd" />
 
 
