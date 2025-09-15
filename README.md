@@ -87,6 +87,7 @@ http://127.0.0.1:8000/api/meteo/warnings?lat=49.62&lon=20.69
 
 Uzyskujemy w ten sposob JSONa z ostrzeżeniami IMGW dla danego powiatu znajdujacego sie na danej lat/lon oraz numer teryt dla tego powiatu, nazwe powiatu, czas obowiazywania od do, poziom, prawdopodobienstwo wystapienia,tytul ostrzezenia, tresc ostrzezenia i kto je wydał oraz kiedy, do tego informacje o polaczeniu z IMGW imgw_available i liczbe aktualnych ostrzezen dla danego obszaru currently_active_IMGW_alerts
 currently_active_IMGW_alerts to alias dla count (zwracaja to samo)
+dodatkowo dodalem rowniez future_IMGW_alerts informujaca czy dla danego TERYT sa alerty ktore sa zaplanowane na przyszlosc,
 
 Jesli serwer IMGW niedostepny wczyta tylko dotychczasowe ostrzezenia z bazy, kazdy odczyt ma w jsonie informacje czy IMGW dziala i czy prezentowane dane sa wlasnie odswiezone,
 "imgw_available": true oznacza ze dane zostaly odswiezone i prezentowane ostrzezenie jest wlasnie sprawdzone na serwerze IMGW
@@ -134,7 +135,7 @@ http://127.0.0.1:8000//api/meteo/centroid?teryt=3011
 
 
 W trakcie testow zauwazylem ze ostrzezenia aktywne wczoraj dzis juz nie sa aktywne i linki daja alert 0, gdy na stronie IMGW sa aktywne alerty dla danego teryt, sprawdzilem i przyczyną ze na stronie IMGW podano alert ktory jeszcze nie obowiazuje, a dotychczasowe zapytania uwzgledniaja tylko aktualnie obowiazujace alerty (zgodnie z trescia zadania - aktualne ostrzezenia)
-Totez na potrzeby testowe dodalem mozliwosc sprawdzenia przyszlych alertow dla danej lat/lon oraz TERYT
+Totez na potrzeby testowe dodalem mozliwosc sprawdzenia przyszlych alertow dla danej lat/lon oraz TERYT, jak i pole future_IMGW_alerts do podstawowego zapytania o warningi
 
 
 http://127.0.0.1:8000/api/meteo/warnings/future/teryt/3011
