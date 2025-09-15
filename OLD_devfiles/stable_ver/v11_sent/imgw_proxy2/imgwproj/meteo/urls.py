@@ -6,9 +6,6 @@ from .views import (
     history_for_point,
     history_for_teryt,
     warnings_live,
-    centroid_for_teryt,
-    future_for_teryt,
-    future_for_point,
 )
 
 urlpatterns = [
@@ -18,7 +15,4 @@ urlpatterns = [
     path("history", history_for_point),
     path("history/teryt/<str:teryt4>", history_for_teryt),
     path("status", status_view),
-    path("centroid", centroid_for_teryt),  # /api/meteo/centroid?teryt=3216
-    path("warnings/future/teryt/<str:teryt4>", future_for_teryt), # future alerts for (TERYT)
-    path("warnings/future", future_for_point), # future alerts for (lat/lon)
 ]
