@@ -125,8 +125,21 @@ Jest tez opcjonalnie wersja do odczytu gdy znamy teryt
 http://127.0.0.1:8000/api/meteo/history/teryt/1465
 
 
+//#EDIT nowe funkcje
+
+Jezeli z feedu IMGW mamy podany TERYT ktory chcemy sprawdzic jaki wypada dla niego lat/lon otrzymamy to tutaj:
+
+http://127.0.0.1:8000//api/meteo/centroid?teryt=3011
 
 
+
+W trakcie testow zauwazylem ze ostrzezenia aktywne wczoraj dzis juz nie sa aktywne i linki daja alert 0, gdy na stronie IMGW sa aktywne alerty dla danego teryt, sprawdzilem i przyczyną ze na stronie IMGW podano alert ktory jeszcze nie obowiazuje, a dotychczasowe zapytania uwzgledniaja tylko aktualnie obowiazujace alerty (zgodnie z trescia zadania - aktualne ostrzezenia)
+Totez na potrzeby testowe dodalem mozliwosc sprawdzenia przyszlych alertow dla danej lat/lon oraz TERYT
+
+
+http://127.0.0.1:8000/api/meteo/warnings/future/teryt/3011
+
+http://127.0.0.1:8000/api/meteo/warnings/future?lat=52.0260&lon=16.7080
 
 
 
@@ -140,8 +153,6 @@ http://127.0.0.1:8000/api/meteo/status
 
 
 
-
-
 Jezeli chcemy zobaczyc baze danych w GUI jak sie aktualizuje i pojawiaja nowe wpisy korzystajac z adminpanel, 
 to można stworzyc usera:
 
@@ -150,6 +161,7 @@ python manage.py createsuperuser
 i wtedy sprawdzic sobie recznie nowe rekordy ostrzezen w bazie
 
 http://127.0.0.1:8000/admin/
+
 
 
 
