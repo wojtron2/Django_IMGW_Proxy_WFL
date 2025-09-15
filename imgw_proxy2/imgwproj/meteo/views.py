@@ -51,6 +51,11 @@ def warnings_for_point(request):
     # aktywne TERAZ z DB (zadziała także, gdy IMGW padlo)
     qs = Warning.current_for_powiat(teryt4)
     data = WarningSerializer(qs, many=True).data
+    
+    future_count = (Warning.objects
+                .filter(coverage__teryt4=teryt4, valid_from__gt=timezone.now())
+                .distinct()
+                .count())
 
     # opcjonalny snapshot
     saved = None
@@ -70,6 +75,7 @@ def warnings_for_point(request):
         "currently_active_IMGW_alerts": len(data),
         "saved_snapshot_id": saved,
         "imgw_available": imgw_ok,
+        "future_IMGW_alerts_for_this_teryt": future_count,   
     })
 
 
